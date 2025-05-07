@@ -1,0 +1,166 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Paleta de colores suaves */
+:root {
+    --primary-soft: #4a7a8c; /* Azul grisáceo suave */
+    --secondary-soft: #6e8e87; /* Verde apagado */
+    --background: #f5f7f6; /* Gris claro cálido */
+    --card-bg: #ffffff; /* Blanco para tarjetas */
+    --text-color: #333333; /* Negro suave para texto */
+    --success-soft: #a3b18a; /* Verde éxito suave */
+    --danger-soft: #d4a59a; /* Rojo apagado para errores */
+}
+
+/* Fondo general */
+body {
+    background: linear-gradient(135deg, var(--background), #e8eceb);
+    color: var(--text-color);
+    font-family: 'Nunito', sans-serif;
+    line-height: 1.6;
+}
+
+/* Estilo de la navbar */
+.navbar {
+    background: linear-gradient(135deg, var(--primary-soft), #5a8a9c);
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.navbar-brand, .nav-link {
+    color: white !important;
+}
+.nav-link:hover {
+    color: #e8eceb !important;
+}
+
+/* Contenedor principal */
+main {
+    background: transparent;
+}
+
+/* Estilo de tarjetas */
+.card {
+    background: var(--card-bg);
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Títulos más grandes */
+h2 {
+    font-size: 2rem; /* Tamaño aumentado a 32px */
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+h4 {
+    font-size: 1.5rem; /* Tamaño aumentado a 24px */
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--primary-soft);
+}
+
+/* Botones */
+.btn-primary {
+    background-color: var(--primary-soft);
+    border-color: var(--primary-soft);
+}
+.btn-primary:hover {
+    background-color: #3a6a7c;
+    border-color: #3a6a7c;
+}
+
+.btn-secondary {
+    background-color: #b0b7b4;
+    border-color: #b0b7b4;
+}
+.btn-secondary:hover {
+    background-color: #a0a7a4;
+    border-color: #a0a7a4;
+}
+
+.btn-success {
+    background-color: var(--success-soft);
+    border-color: var(--success-soft);
+}
+.btn-success:hover {
+    background-color: #93a17a;
+    border-color: #93a17a;
+}
+
+.btn-danger {
+    background-color: var(--danger-soft);
+    border-color: var(--danger-soft);
+}
+.btn-danger:hover {
+    background-color: #c4958a;
+    border-color: #c4958a;
+}
+
+/* Tablas con efecto hover */
+.table {
+    background: var(--card-bg);
+    border-radius: 10px;
+    overflow: hidden;
+}
+.table th {
+    background-color: var(--primary-soft);
+    color: white;
+}
+.table td {
+    vertical-align: middle;
+}
+.table tbody tr {
+    transition: background-color 0.3s ease;
+}
+.table tbody tr:hover {
+    background-color: #e8eceb; /* Color suave al pasar el mouse */
+    cursor: pointer;
+}
+
+/* Alertas */
+.alert {
+    border-radius: 10px;
+    padding: 15px;
+}
+.alert-success {
+    background-color: var(--success-soft);
+    color: white;
+    border: none;
+}
+.alert-danger {
+    background-color: var(--danger-soft);
+    color: white;
+    border: none;
+}
+.alert-info {
+    background-color: #a3c6c4;
+    color: white;
+    border: none;
+}
+
+/* Formularios */
+.form-control {
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+}
+
+/* Dropdown */
+.dropdown-menu {
+    background-color: var(--card-bg);
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.dropdown-item {
+    color: var(--text-color);
+}
+.dropdown-item:hover {
+    background-color: var(--background);
+}
+
+.table tbody tr:hover {
+    background-color: #e8eceb !important;
+    cursor: pointer;
+}
