@@ -219,9 +219,14 @@ class TelegramBotController extends Controller
                     $t2 = $nota->trimestre2 ?? 'N/A';
                     $t3 = $nota->trimestre3 ?? 'N/A';
                     $nf = $nota->nota_final ?? 'N/A';
-                    $response .= "Trimestre I:  **$t1**\n";
+                    // Escapar puntos en valores numéricos para MarkdownV2
+                    $t1 = is_numeric($t1) ? str_replace('.', '\.', $t1) : $t1;
+                    $t2 = is_numeric($t2) ? str_replace('.', '\.', $t2) : $t2;
+                    $t3 = is_numeric($t3) ? str_replace('.', '\.', $t3) : $t3;
+                    $nf = is_numeric($nf) ? str_replace('.', '\.', $nf) : $nf;
+                    $response .= "Trimestre I: **$t1**\n";
                     $response .= "Trimestre II: **$t2**\n";
-                    $response .= "Trimestre II: **$t3**\n";
+                    $response .= "Trimestre III: **$t3**\n"; // Corregido de "Trimestre II" a "Trimestre III"
                     $response .= "Nota Final: **$nf**\n";
                     if ($index < $notas->count() - 1) {
                         $response .= "────────────\n"; // Separador entre notas si hay más de una
