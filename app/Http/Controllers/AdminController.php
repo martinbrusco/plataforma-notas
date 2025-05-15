@@ -8,6 +8,7 @@ use App\Models\Materia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\ValidationException;
 
 class AdminController extends Controller
 {
@@ -50,9 +51,10 @@ class AdminController extends Controller
     }
 
     public function register(Request $request)
-    {
-        Log::info('Datos recibidos en AdminController@register', $request->all());
+{
+    Log::info('Datos recibidos en AdminController@register', $request->all());
 
+    try {
         $validatedData = $request->validate([
             'dni' => 'required|string|max:10|unique:users,dni',
             'nombre' => 'required|string|max:255',
@@ -66,30 +68,34 @@ class AdminController extends Controller
             'password.confirmed' => 'Las contraseñas no coinciden.',
         ]);
 
-        try {
-            $user = User::create([
-                'dni' => $validatedData['dni'],
-                'nombre' => $validatedData['nombre'],
-                'apellido' => $validatedData['apellido'],
-                'email' => $validatedData['email'],
-                'password' => bcrypt($validatedData['password']),
-                'rol' => $validatedData['rol'],
-            ]);
+        $user = User::create([
+            'dni' => $validatedData['dni'],
+            'nombre' => $validatedData['nombre'],
+            'apellido' => $validatedData['apellido'],
+            'email' => $validatedData['email'],
+            'password' => bcrypt($validatedData['password']),
+            'rol' => $validatedData['rol'],
+        ]);
 
-            Log::info('Usuario creado exitosamente', ['user_id' => $user->id]);
-
-            return redirect()->route('admin.register.form')->with('success', 'Usuario creado correctamente.');
-        } catch (\Exception $e) {
-            Log::error('Error al registrar usuario: ' . $e->getMessage(), [
-                'request_data' => $request->all(),
-                'exception' => $e->getTraceAsString(),
-            ]);
-
-            return redirect()->back()
-                ->with('error', 'Error al registrar el usuario: ' . $e->getMessage())
-                ->withInput();
+        // Verificación adicional
+        $createdUser = User::find($user->id);
+        if (!$createdUser) {
+            throw new \Exception('El usuario no se guardó en la base de datos.');
         }
+
+        Log::info('Usuario guardado correctamente', ['user_id' => $user->id, 'dni' => $user->dni]);
+        return redirect()->route('admin.register.form')->with('success', 'Usuario creado correctamente.');
+            } catch (\Illuminate\Validation\ValidationException $e) {
+        Log::error('Error de validación al registrar usuario', ['errors' => $e->errors()]);
+        return redirect()->back()->with('error', 'Error de validación: ' . implode(', ', array_merge(...array_values($e->errors()))))->withInput();
+            } catch (\Exception $e) {
+        Log::error('Error al registrar usuario: ' . $e->getMessage(), [
+            'request_data' => $request->all(),
+            'exception' => $e->getTraceAsString(),
+        ]);
+        return redirect()->back()->with('error', 'Error al registrar el usuario: ' . $e->getMessage())->withInput();
     }
+}
 
     public function edit(User $user)
     {

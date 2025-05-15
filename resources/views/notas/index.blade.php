@@ -32,7 +32,7 @@
             <tbody>
                 @foreach($notas as $nota)
                     <tr>
-                        <td>{{ $nota->alumno->nombre }}</td>
+                        <td>{{ $nota->alumno->nombre }} {{ $nota->alumno->apellido }}</td>
                         <td>{{ $nota->asignatura->nombre }}</td>
                         <td>{{ $nota->trimestre1 }}</td>
                         <td>{{ $nota->trimestre2 }}</td>

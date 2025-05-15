@@ -6,7 +6,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="mb-4">Registrar Nuevo Usuario</h2>
+                        <h2 class="mb-4">Nuevo usuario</h2>
 
 
                         @if(session('success'))
